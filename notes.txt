@@ -1,0 +1,6 @@
+instructions:
+- fix the error in the main use case
+
+- implement the like messages feature 
+
+- wear sunglasses
