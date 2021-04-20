@@ -5,8 +5,8 @@ const router = Router()
 
 
 router.get('/', async function (req, res){
-    let messages = await Message.findAll({include: Upvote})
-    let data = { messages }
+    let messages = await Message.findAll({include: Upvote}) //include upvote model in the search  so
+    let data = { messages }                                 // corresponding upvote score of the message will be accessed
 
     res.render('index.ejs', data)
 })
@@ -40,9 +40,9 @@ router.post('/login', async function(req, res) {
 
 
     try {
-        let user = await User.findOne({
-            where: {username}
-        })
+        let user = await User.findOne({  //the error is corrected here by simply moving the if statement and the 
+            where: {username}           //into the scope of the try so it can be the user would not be undefined
+        })        
 
     if (user && user.password === password) {
         let data = {
@@ -100,18 +100,19 @@ router.post('/message', async function(req, res){
 })
 
 
-router.get("/createLikes/:text/:likes", async function(req,res){
-
-    let countLike = parseInt(req.params.likes)
-    let nextCountLike = countLike + 1
-    let likes = await Upvote.update({score:nextCountLike},{
-        where: {
+router.get("/createLikes/:text/:likes", async function(req,res){  //as relating to the link in ejs file
+                                                 // :text represent the message that is liked and
+                                                 // :likes  is variable for current # of likes
+    let countLike = parseInt(req.params.likes)  // convert the number of likes to integer    
+    let nextCountLike = countLike + 1           //add one to it
+    let likes = await Upvote.update({score:nextCountLike},{ // update the instance of upvote 
+        where: {                                            // where score = current score displayed            
             score: countLike,
-            text: req.params.text
+            text: req.params.text                           //where text column = the the concened message being liked
         }
     })
 
-    res.redirect("/")
+    res.redirect("/")                      //redirect to home
 
 
 })

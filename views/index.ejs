@@ -22,7 +22,7 @@
     <% for (let message of locals.messages) { %> 
         <div>
             <hr>
-            <%= message.dataValues.content %> 
+            <%= message.dataValues.content %> <!-- below you can see the link is manipulated to have the current value of score and current message-->
             <p style ="font-size: 80%;"><a href="/createLikes/<%=message.dataValues.content %>/<%= message.dataValues.Upvote.dataValues.score %>">Upvote:</a> <%= message.dataValues.Upvote.dataValues.score %></p>
 
         </div>
